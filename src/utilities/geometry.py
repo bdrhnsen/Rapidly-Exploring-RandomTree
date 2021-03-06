@@ -42,8 +42,9 @@ def es_points_along_line(start, end, r):
         step = d / (n_points - 1)
         for i in range(n_points):
             next_point = steer(start, end, i * step)
-            print(next_point)
+            
             yield next_point
+          
 
 
 def steer(start, goal, d):

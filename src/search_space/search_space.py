@@ -67,9 +67,8 @@ class SearchSpace(object):
         :return: True if line segment does not intersect an obstacle, False otherwise
         """
         points = es_points_along_line(start, end, r)
-        
+       
         coll_free = all(map(self.obstacle_free, points))
-        print(coll_free)
         return coll_free
 
     def sample(self):

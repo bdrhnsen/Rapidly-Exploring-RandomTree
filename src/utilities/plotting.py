@@ -113,7 +113,47 @@ class Plot(object):
                 self.data.append(obs)
         else:  # can't plot in higher dimensions
             print("Cannot plot in > 3 dimensions")
-
+        
+    def plot_c_obstacles(self, X, O):
+        """
+        Plot obstacles
+        :param X: Search Space
+        :param O: list of obstacles
+        """
+        if X.dimensions == 2:  # plot in 2D
+            self.layout['shapes'] = []
+            for O_i in O:
+                # noinspection PyUnresolvedReferences
+                self.layout['shapes'].append(
+                    {
+                        'type': 'rect',
+                        'x0': O_i[0],
+                        'y0': O_i[1],
+                        'x1': O_i[2],
+                        'y1': O_i[3],
+                        'line': {
+                            'color': 'yellow',
+                            'width': 4,
+                        },
+                        'fillcolor': 'yellow',
+                        'opacity': 0.70
+                    },
+                )
+        elif X.dimensions == 3:  # plot in 3D
+            for O_i in O:
+                obs = go.Mesh3d(
+                    x=[O_i[0], O_i[0], O_i[3], O_i[3], O_i[0], O_i[0], O_i[3], O_i[3]],
+                    y=[O_i[1], O_i[4], O_i[4], O_i[1], O_i[1], O_i[4], O_i[4], O_i[1]],
+                    z=[O_i[2], O_i[2], O_i[2], O_i[2], O_i[5], O_i[5], O_i[5], O_i[5]],
+                    i=[7, 0, 0, 0, 4, 4, 6, 6, 4, 0, 3, 2],
+                    j=[3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3],
+                    k=[0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 6],
+                    color='yellow',
+                    opacity=0.70
+                )
+                self.data.append(obs)
+        else:  # can't plot in higher dimensions
+            print("Cannot plot in > 3 dimensions")
     def plot_path(self, X, path):
         """
         Plot path through Search Space
