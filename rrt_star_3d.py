@@ -25,8 +25,6 @@ def cluster_generate(i,j,k,radius,p):
         point_in_cluster.append(apoint)
     
     dis=[0]*len(point_in_cluster)
-
-
     for m in range(len(point_in_cluster)):
         point=point_in_cluster[m]
         d=distance(i,j,k,point[0],point[1],point[2])
@@ -44,20 +42,74 @@ def cluster_generate(i,j,k,radius,p):
         
         cir_point=point_in_cluster[id]
         circumfrance_points.append(point_generate(cir_point[0],cir_point[1],cir_point[2],p))
-        
+def list_duplicates_of(seq,item):
+    start_at = -1
+    locs = []
+    while True:
+        try:
+            loc = seq.index(item,start_at+1)
+        except ValueError:
+            break
+        else:
+            locs.append(loc)
+            start_at = loc
+    return locs
+
+#source = "ABABDBAAEDSBQEWBAFLSAFB"
+#print(list_duplicates_of(source, 'B'))
+       
 def determine_cluster(Obstacles_list,circumfrance_points):
     data_list=[]
     for w in range(len(Obstacles_list)):
         obs_ls=Obstacles_list[w][:3]
         data_list.append(obs_ls)
-        print(data_list)
-    
+    for q in range(len(circumfrance_points)):
+        obs_lst=circumfrance_points[q][:3]
+        data_list.append(obs_lst)
     data=np.array(data_list)/100
     db = DBSCAN(eps=0.7, min_samples=1).fit(data)
-
     labels = db.labels_
-    print(labels)
+    #for x in range(9):
+     #   exec("string" + str(x) + " = 'hello'")
+    #len(set(labels))
+    label_0,label_1,label_2,label_3,label_4=([] for i in range(5))
+    labels_list=labels.tolist()
+    for k in range(len(labels)):
+        if (labels_list[k] == 0):
+            label_0.append(k)
+        if (labels_list[k] == 1):
+            label_1.append(k)
+        if (labels_list[k] == 2):
+            label_2.append(k)
+        if (labels_list[k] == 3):
+            label_3.append(k)
+        if (labels_list[k] == 4):
+            label_4.append(k)
 
+    print(label_0)        
+def find_cluster_center(cluster_points):
+    a=[]
+    for i in range(len(cluster_points)):
+        x=cluster_points[i][0]
+        y=cluster_points[i][1]
+        z=cluster_points[i][2]
+        avg_x =+ x
+        avg_y =+ y
+        avg_z =+ z
+    cluster_center_x=avg_x/len(cluster_points)
+    cluster_center_y=avg_y/len(cluster_points)
+    cluster_center_z=avg_z/len(cluster_points)
+    a=[cluster_center_x, cluster_center_y, cluster_center_z]
+    return a
+def find_cluster_radius(point_in_cluster,cluster_center):
+    dis=[0]*len(point_in_cluster)
+    for m in range(len(point_in_cluster)):
+        point=point_in_cluster[m]
+        d=distance(i,j,k,point[0],point[1],point[2])
+        dis[m]=[d,m] # clusterdaki her noktanın merkeze uzaklığı ve o noktanın indexi
+    dis.sort(reverse=True, key=take_first) # distance a göre sıralama
+    radius=dis[:0]
+    return radius
 X_dimensions = np.array([(0, 300), (0, 300), (0, 300)])  # dimensions of Search Space
 # obstacles
 radius=50
@@ -78,14 +130,14 @@ circumfrance_points=[]
 #    Obstacles_list.append(point)
 #Obstacles=np.array(Obstacles_list)
 num_of_clusters=random.randint(5,10)
-for _ in range (num_of_clusters):
+for _ in range (num_of_clusters):#generate random centers
     center_x=random.randint(0,300)
     center_y=random.randint(0,300)
     center_z=random.randint(0,300)
     center=[center_x,center_y,center_z]
     center_list.append(center)
 
-for center in center_list:
+for center in center_list: #center list kadar cluster yaratmak
     cluster_generate(center[0],center[1],center[2],radius,p)
 Obstacles=np.array(Obstacles_list)
 Circumfrances=np.array(circumfrance_points)
