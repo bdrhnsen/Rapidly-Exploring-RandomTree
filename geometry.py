@@ -4,7 +4,7 @@
 from itertools import tee
 
 import numpy as np
-import rrt_star_3d
+from rrt_star_3d import *
 
 def dist_between_points(a, b):
     """
@@ -28,7 +28,7 @@ def pairwise(iterable):
     return zip(a, b)
 
 
-def es_points_along_line(start, end, r):
+def es_points_along_line(start, end, r,circumfrance_points,drone_size):
     """
     Equally-spaced points along a line defined by start, end, with resolution r
     :param start: starting point
@@ -41,12 +41,12 @@ def es_points_along_line(start, end, r):
     if n_points > 1:
         step = d / (n_points - 1)
         for i in range(n_points):
-            # for k in range(circumfrance_points):
-            #     dis.append(dist_between_points(circumfrance_points[k],n_points[i]))
-            # dis.sort(key=reverse)
-            # if (dis[0] > drone_size):
-            next_point = steer(start, end, i * step)
-            yield next_point
+            for k in range(circumfrance_points):
+                dis.append(dist_between_points(circumfrance_points[k],n_points[i]))
+            dis.sort(key=reverse)
+            if (dis[0] > drone_size):
+                next_point = steer(start, end, i * step)
+                yield next_point
 
 
 
