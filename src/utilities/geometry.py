@@ -4,7 +4,6 @@
 from itertools import tee
 
 import numpy as np
-import rrt_star_3d
 
 def dist_between_points(a, b):
     """
@@ -43,7 +42,7 @@ def es_points_along_line(start, end, r):
         for i in range(n_points):
             # for k in range(circumfrance_points):
             #     dis.append(dist_between_points(circumfrance_points[k],n_points[i]))
-            # dis.sort(key=reverse)
+            # dis.sort()
             # if (dis[0] > drone_size):
             next_point = steer(start, end, i * step)
             yield next_point

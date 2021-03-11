@@ -181,29 +181,29 @@ def find_cluster_radius(point_in_cluster,cluster_center,p):
     return radius
 
 
-X_dimensions = np.array([(0, 300), (0, 300), (0, 300)])  # dimensions of Search Space
+X_dimensions = np.array([(0, 900), (0, 900), (0, 900)])  # dimensions of Search Space
 # obstacles
 radius=50
-p=10
+p=5
 Obstacles_list=[]
 big_guns=[]
 center_list=[]
 point_list=[]
 dis=[]
-num_of_points=3
+num_of_points=100
 circumfrance_list=[]
 circumfrance_points=[]
 drone_size=10
-num_of_clusters=5
+num_of_clusters=100
 
 
 
 
 
 for _ in range (num_of_clusters):#generate random centers
-    center_x=random.randint(0,300)
-    center_y=random.randint(0,300)
-    center_z=random.randint(0,300)
+    center_x=random.randint(0,900)
+    center_y=random.randint(0,900)
+    center_z=random.randint(0,900)
     center=[center_x,center_y,center_z]
     center_list.append(center)
 
@@ -221,11 +221,11 @@ Guns=np.array(big_guns)
    #[(20, 20, 20, 40, 40, 40),(20, 20, 60, 40, 40, 80), (20, 60, 20, 40, 80, 40), (60, 60, 20, 80, 80, 40),
     #(60, 20, 20, 80, 40, 40), (60, 20, 60, 80, 40, 80), (20, 60, 60, 40, 80, 80), (60, 60, 60, 80, 80, 80),(90,90,90,95,95,95)])
 x_init = (0, 0, 0)  # starting location
-x_goal = (300, 300, 300)  # goal location
+x_goal = (900, 900, 900)  # goal location
 
 Q = np.array([(8, 4)])  # length of tree edges
-r = 1  # length of smallest edge to check for intersection with obstacles
-max_samples = 100000  # max number of samples to take before timing out
+r = 2  # length of smallest edge to check for intersection with obstacles
+max_samples = 1000000  # max number of samples to take before timing out
 rewire_count = 32  # optional, number of nearby branches to rewire
 prc = 0.1  # probability of checking for a connection to goal
 
