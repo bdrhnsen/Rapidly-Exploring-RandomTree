@@ -4,7 +4,7 @@
 - [Rtree](https://pypi.python.org/pypi/Rtree/)
 - [Plotly](https://plot.ly/python/getting-started/) (only needed for plotting)
 
-### Additions by AHMET BEDIRHAN SEN
+### Additions by bdrhnsen
 
 Test cases for randomly generated point
 
